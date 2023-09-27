@@ -1,22 +1,99 @@
 <main class="container">
   <img src="assets/img/Overcooked_background.png" alt="Overcooked" />
-  <h1>Overcooked level randomizer</h1>
+  <h1>{{title}}</h1>
 
   <div id="content">
     <h2>Select the content you want to play</h2>
     <section>
       <article>
-        <button class="game" type="button">Overcooked</button>
-        <button class="dlc" type="button">DLCs</button>
+        <button class="game" type="button" (click)="modifyContent('overcooked')" [ngClass]="{'activated': 
+        content_list.includes('overcooked')}">Overcooked</button>
+        <button class="dlc" type="button" (click)="modifyAllDLCList('overcooked_dlcs')" [ngClass]="{'activated': 
+        overcooked_dlc_content_list.length > 0}">DLCs</button>
       </article>
+
       <article>
-        <button class="game" type="button">Overcooked 2</button>
-        <button class="dlc" type="button">DLCs</button>
+        <button class="game" type="button" (click)="modifyContent('overcooked_2')" [ngClass]="{'activated': 
+        content_list.includes('overcooked_2')}">Overcooked 2</button>
+        <button class="dlc" type="button" (click)="modifyAllDLCList('overcooked_2_dlcs')" [ngClass]="{'activated': 
+        overcooked_2_dlc_content_list.length > 0}">DLCs</button>
       </article>
+
       <article>
-        <button class="game" type="button">Overcooked All You Can Eat</button>
-        <button class="dlc" type="button">DLCs</button>
+        <button class="dlc" type="button" (click)="modifyAllDLCList('overcooked_ayce_dlcs')" [ngClass]="{'activated': 
+        overcooked_ayce_dlc_content_list.length > 0}">
+          <p>Overcooked All You Can Eat</p>
+          <br>
+          <br>
+          <p>DLCs</p>
+        </button>
       </article>
     </section>
+
+    <div id="dlc_display_lists">
+      <article *ngIf="overcooked_dlc_content_list.length > 0">
+        <h4>Overcooked DLCs</h4>
+        <span (click)="modifyContentDLC('overcooked_dlcs', item)" [ngClass]="{'activated_dlc': 
+        content_list.includes(item)}" *ngFor="let item of overcooked_dlc_names">
+          {{item}}
+        </span>
+      </article>
+
+      <article *ngIf="overcooked_2_dlc_content_list.length > 0">
+        <h4>Overcooked 2 DLCs</h4>
+        <span (click)="modifyContentDLC('overcooked_2_dlcs', item)" [ngClass]="{'activated_dlc': 
+        content_list.includes(item)}" *ngFor="let item of overcooked_2_dlc_names">
+          {{item}}
+        </span>
+      </article>
+
+      <article *ngIf="overcooked_ayce_dlc_content_list.length > 0">
+        <h4>Overcooked: All You Can Eat DLCs</h4>
+        <span (click)="modifyContentDLC('overcooked_ayce_dlcs', item)" [ngClass]="{'activated_dlc': 
+        content_list.includes(item)}" *ngFor="let item of overcooked_ayce_dlc_names">
+          {{item}}
+        </span>
+      </article>
+    </div>
+
+    <form id="generate-box">
+      <article id="generate">
+        <input type="number" min="1" placeholder="Number of levels">
+        <button type="button" id="generate-button">Generate</button>
+        <button type="button" id="reset-button">Reset</button>
+      </article>
+
+      <article id="checks">
+        <div>
+          <input type="checkbox" name="normal_levels" id="normal_levels">
+          <label for="normal_levels">Normal levels</label>
+        </div>
+
+        <div>
+          <input type="checkbox" name="kevin_levels" id="kevin_levels">
+          <label for="kevin_levels">Kevin levels</label>
+        </div>
+
+        <div>
+          <input type="checkbox" name="horde_levels" id="horde_levels">
+          <label for="horde_levels">Horde levels</label>
+        </div>
+
+        <div>
+          <input type="checkbox" name="final_boss_levels" id="final_boss_levels">
+          <label for="final_boss_levels">Final Boss levels</label>
+        </div>
+      </article>
+    </form>
   </div>
 </main>
+
+<div id="results">
+  
+</div>
+
+<footer>
+  <p>Overcooked level randomizer made by <a href="https://github.com/rubenalarcongalvez">rubenalarcongalvez</a></p>
+
+  <p id="team17">All rights reserved for <a href="https://www.team17.com/">Team 17</a> (game developers: <a href="https://ghosttowngames.com/buy-games/">Ghost Town Games</a>)</p>
+</footer>

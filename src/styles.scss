@@ -37,6 +37,91 @@ h2 {
     text-align: center;
 }
 
+.activated {
+    color: lime;
+}
+
+.activated_dlc {
+    color: green;
+}
+
+#dlc_display_lists {
+    display: flex;
+    gap: 10px;
+    margin: 1rem 0;
+
+    article {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 5px;
+
+        h4 {
+            color: blue;
+        }
+
+        span {
+            cursor: pointer;
+
+            &:hover {
+                color: blue;
+            }
+        }
+    }
+}
+
+#generate-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5px;
+
+    #generate {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    
+        input {
+            border-radius: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    
+        #generate-button {
+            background-color: orangered;
+            transition: background-color .25s;
+    
+            &:hover {
+                background-color: rgb(67, 34, 255);
+            }
+        }
+
+        #reset-button {
+            background-color: white;
+            color: black;
+            transition: background-color .25s;
+    
+            &:hover {
+                background-color: gray;
+                color: white;
+            }
+        }
+    }
+
+    #checks {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        color: black;
+
+        div {
+            display: flex;
+            gap: 5px;
+            align-items: baseline;
+        }
+    }
+}
+
 button {
     padding: 10px;
     color: white;
@@ -45,7 +130,7 @@ button {
 
     &.game {
         background: linear-gradient(sienna 60%, orangered);
-    
+
         &:hover {
             background: linear-gradient(sienna, orangered 60%);
         }
@@ -53,7 +138,7 @@ button {
 
     &.dlc {
         background: linear-gradient(sienna 60%, red);
-    
+
         &:hover {
             background: linear-gradient(sienna, red 60%);
         }
@@ -88,6 +173,33 @@ main {
             flex-direction: column;
             justify-content: center;
             gap: 5px;
+        }
+    }
+}
+
+footer {
+    background-color: black;
+    color: white;
+    width: 100%;
+    text-align: center;
+
+    a {
+        color: orange;
+
+        &:visited {
+            color: orangered;
+        }
+    }
+
+    #team17 {
+        background-color: rgb(132, 0, 197);
+
+        a {
+            color: orange;
+
+            &:visited {
+                color: orangered;
+            }
         }
     }
 }
