@@ -32,8 +32,10 @@ h1 {
 }
 
 h2 {
-    color: rgb(74, 46, 255);
-    text-decoration: underline;
+    background-color: navy;
+    border-start-end-radius: 5px;
+    border-start-start-radius: 5px;
+    color: white;
     text-align: center;
 }
 
@@ -70,6 +72,18 @@ h2 {
     }
 }
 
+.dlc-level-group {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    span.dlc-sub-level-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+}
+
 #generate-box {
     display: flex;
     flex-direction: column;
@@ -78,13 +92,31 @@ h2 {
 
     #generate {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 5px;
-    
-        input {
-            border-radius: 5px;
-            padding-left: 10px;
-            padding-right: 10px;
+
+        div {
+            display: flex;
+            flex-wrap: nowrap;
+
+            input {
+                min-height: 2rem;
+                border-start-start-radius: 5px;
+                border-end-start-radius: 5px;
+                padding-left: 10px;
+                padding-right: 10px;
+                text-align: center;
+                color: navy;
+                font-weight: bolder;
+            }
+
+            button {
+                background-color: navy;
+                border-radius: 0;
+                border-start-end-radius: 5px;
+                border-end-end-radius: 5px;
+            }
         }
     
         #generate-button {
@@ -96,7 +128,7 @@ h2 {
             }
         }
 
-        #reset-button {
+        #clear-button {
             background-color: white;
             color: black;
             transition: background-color .25s;
@@ -122,6 +154,139 @@ h2 {
     }
 }
 
+.pop-up {
+    margin-top: 5px;
+    color: white;
+    border-radius: 5px;
+    padding: 7.5px;
+    position: relative;
+    text-align: center;
+
+    button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 2px;
+        margin: 2px;
+        color: black;
+
+        &:hover {
+            background-color: white;
+        }
+    }
+
+    &#warnings {
+        background-color: indianred;
+        border: 1px solid crimson;
+    }
+
+    &#information {
+        color: black;
+        background-color: khaki;
+        border: 1px solid orangered;
+    }
+}
+
+button.select-all {
+    background-color: orangered;
+    padding: 5px;
+
+    &:hover {
+        background-color: rgb(255, 83, 21);
+    }
+}
+
+button.remove-all {
+    background-color: rgb(199, 33, 33);
+
+    &:hover {
+        background-color: rgb(226, 38, 38);
+    }
+}
+
+#results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    article {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 13em;
+        height: fit-content;
+        align-items: center;
+        gap: 5px;
+        background-color: white;
+        padding-bottom: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+
+        h3 {
+            color: white;
+            background-color: orangered;
+            padding: 5px 1rem;
+            
+            width: 100%;
+            border-bottom: 1px solid black;
+
+            &.dlc-results {
+                background-color: red;
+                border-top: 1px solid black;
+            }
+
+            &.dlc-results-just-dlcs {
+                background-color: red;
+            }
+        }
+
+        div {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2px 8px;
+            justify-content: space-between;
+
+            button {
+                background-color: blue;
+                cursor: pointer;
+                color: white;
+                padding: 0;
+                display: flex;
+                border-radius: 5px;
+                border: 1px solid black;
+                margin: 1px;
+    
+                &:hover {
+                    border: 2px solid lime;
+                    margin: 0;
+                }
+
+                span {
+                    width: 100%;
+                    padding: 5px;
+                    border-radius: 5px;
+
+                    &.completed {
+                        background-color: rgb(14, 185, 14);
+                    }
+                    &.kevin {
+                        background-color: darkmagenta;
+                    }
+                    &.horde {
+                        background-color: brown;
+                    }
+                    &.final-boss {
+                        background-color: red;
+                    }
+                }
+            }
+        }
+    }
+}
+
 button {
     padding: 10px;
     color: white;
@@ -142,6 +307,16 @@ button {
         &:hover {
             background: linear-gradient(sienna, red 60%);
         }
+    }
+}
+
+button#reset-level-list {
+    background-color: rgb(201, 19, 55);
+    width: 100%;
+    margin-top: 10px;
+
+    &:hover {
+        background-color: rgb(173, 19, 50);
     }
 }
 
@@ -182,6 +357,10 @@ footer {
     color: white;
     width: 100%;
     text-align: center;
+
+    span {
+        color: rgb(96, 199, 165);
+    }
 
     a {
         color: orange;
