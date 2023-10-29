@@ -24,9 +24,12 @@ export class AppComponent implements OnInit {
   overcooked_dlc_levels:any = [
     //Overcooked: DLC -> The Lost Morsel
     [["DLC", "Overcooked", "The Lost Morsel"], ["1", 6], "normal"],
+    
+    //Overcooked 2: DLC -> Festive Seasoning
+    [["DLC", "Overcooked 2", "Festive Seasoning"], ["1", 8], "normal"],
   ];
 
-  overcooked_dlc_names:any = ["The Lost Morsel"];
+  overcooked_dlc_names:any = ["The Lost Morsel", "Festive Seasoning"];
 
   overcooked_2_levels:any = [
     //Overcooked 2
@@ -82,14 +85,11 @@ export class AppComponent implements OnInit {
     //Overcooked 2: DLC -> Sun's Out Buns Out
     [["DLC", "Overcooked 2", "Sun's Out Buns Out"], ["1", 5], "normal"],
 
-    //Overcooked 2: DLC -> Festive Seasoning
-    [["DLC", "Overcooked 2", "Festive Seasoning"], ["1", 8], "normal"],
-
     //Overcooked 2: DLC -> Moon Harvest Festival
     [["DLC", "Overcooked 2", "Moon Harvest Festival"], ["1", 5], "normal"],
   ];
 
-  overcooked_2_dlc_names:any = ["Surf 'n' Turf", "Kevin's Christmas", "Chinese New Year", "Campfire: Cook Off", "Night of the Hangry Horde", "Carnival of Chaos", "Winter Wonderland", "Spring Festival", "Sun's Out Buns Out", "Festive Seasoning", "Moon Harvest Festival"];
+  overcooked_2_dlc_names:any = ["Surf 'n' Turf", "Kevin's Christmas", "Chinese New Year", "Campfire: Cook Off", "Night of the Hangry Horde", "Carnival of Chaos", "Winter Wonderland", "Spring Festival", "Sun's Out Buns Out", "Moon Harvest Festival"];
 
   overcooked_ayce_dlc_levels:any = [
     //Overcooked All You Can Eat: DLC -> The Ever Peckish Rises
