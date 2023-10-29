@@ -1,4 +1,5 @@
 # Overcooked Level Randomizer
+A complete tool to randomize all the levels in all Overcooked games. It is very intuitive, by colors and you can add more if you played your current selection.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.3.
 
