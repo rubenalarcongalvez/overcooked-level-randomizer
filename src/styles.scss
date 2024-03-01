@@ -1,4 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
 * {
     border: 0;
     padding: 0;
@@ -80,7 +81,7 @@ h2 {
     span.dlc-sub-level-group {
         display: flex;
         flex-wrap: wrap;
-        justify-content: start;
+        justify-content: flex-start;
     }
 }
 
@@ -353,32 +354,45 @@ main {
 }
 
 footer {
-    background-color: black;
     color: white;
     width: 100%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 
-    span {
-        color: rgb(96, 199, 165);
+    section {
+        background-color: black;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: 8px;
+
+        &:first-child {
+            padding: 8px;
+        }
+    }
+
+    h4 {
+        display: flex;
+        gap: 8px;
+        font-weight: normal;
     }
 
     a {
         color: orange;
 
         &:visited {
-            color: orangered;
+            color: rgb(255, 120, 70);
+        }
+
+        &:hover {
+            color: rgb(255, 180, 50);
         }
     }
 
     #team17 {
         background-color: rgb(132, 0, 197);
-
-        a {
-            color: orange;
-
-            &:visited {
-                color: orangered;
-            }
-        }
+        width: 100%;
     }
 }
