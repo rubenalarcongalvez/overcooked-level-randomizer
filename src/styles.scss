@@ -359,6 +359,38 @@ footer {
     text-align: center;
     display: flex;
     flex-direction: column;
+    
+    a {
+        color: orange;
+
+        &:visited {
+            color: rgb(255, 120, 70);
+        }
+
+        &:hover {
+            color: rgb(255, 180, 50);
+        }
+    }
+
+    #team17 {
+        background-color: rgb(132, 0, 197);
+        width: 100%;
+    }
+}
+
+#main-div {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
+
+footer {
+    color: white;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
 
     section {
         background-color: black;
