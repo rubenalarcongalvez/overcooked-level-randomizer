@@ -1,10 +1,11 @@
 <div class="card flex justify-content-center gap-2 flex-wrap">
-    <p-button severity="primary" routerLink="" icon="pi pi-home"/>
-
-    <p-button (onClick)="visibleLoginPopup = true" label="Admin login" severity="contrast"/>
-
-    <p-button label="Add / Remove levels" severity="help" routerLink="add-remove-levels"/>
-    <p-button label="Log out" severity="danger"/>
+    @if (loggedIn) {
+        <p-button severity="primary" routerLink="" icon="pi pi-home"/>
+        <p-button label="Add / Remove levels" severity="help" routerLink="add-remove-levels"/>
+        <p-button label="Log out" severity="danger"/>
+    } @else {
+        <p-button (onClick)="visibleLoginPopup = true" label="Admin login" severity="contrast"/>
+    }
 </div>
 
 <p-dialog 
@@ -32,9 +33,19 @@
                 </label>
                 <input pInputText id="username" class="flex-auto" autocomplete="off" formControlName="username"/>
             </div>
-            <div class="flex items-center gap-3 mb-5">
-                <label for="password" class="font-semibold w-6rem">Password</label>
-                <input pInputText id="password" class="flex-auto" autocomplete="on" type="password" formControlName="password"/>
+            <div class="flex flex-col justify-center items-start gap-3">
+                <section class="flex items-center gap-3 w-full">
+                    <label for="password" class="font-semibold w-6rem">Password</label>
+                    <input pInputText id="password" class="flex-auto" autocomplete="on" type="password" formControlName="password"/>
+                </section>
+                @if (loginFailed) {
+                    <p-messages class="w-full">
+                        <ng-template pTemplate>
+                            <i class="pi pi-times" style="font-size: 1rem"></i>
+                            <div class="ml-2">Wrong password</div>
+                        </ng-template>
+                    </p-messages>
+                }
             </div>
         </form>
         <ng-template pTemplate="footer">
