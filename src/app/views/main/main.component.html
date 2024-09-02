@@ -1,0 +1,179 @@
+<main class="container">
+    <img src="assets/img/Overcooked_background.png" alt="Overcooked" />
+    <h1>{{title}}</h1>
+  
+    <div id="content">
+      <h2>Select the content you want to play</h2>
+      <section>
+        <article>
+          <button class="game" type="button" (click)="modifyContent('Overcooked')" [ngClass]="{'activated': 
+          content_list.includes('Overcooked')}">Overcooked</button>
+          <button class="dlc" type="button" (click)="overcooked_dlc_content_list_opened = !overcooked_dlc_content_list_opened" [ngClass]="{'activated': 
+          overcooked_dlc_content_list.length > 0}">DLCs</button>
+        </article>
+  
+        <article>
+          <button class="game" type="button" (click)="modifyContent('Overcooked 2')" [ngClass]="{'activated': 
+          content_list.includes('Overcooked 2')}">Overcooked 2</button>
+          <button class="dlc" type="button" (click)="overcooked_2_dlc_content_list_opened = !overcooked_2_dlc_content_list_opened" [ngClass]="{'activated': 
+          overcooked_2_dlc_content_list.length > 0}">DLCs</button>
+        </article>
+  
+        <article class="button-centered">
+          <button class="dlc" type="button" (click)="overcooked_ayce_dlc_content_list_opened = !overcooked_ayce_dlc_content_list_opened" [ngClass]="{'activated': 
+          overcooked_ayce_dlc_content_list.length > 0}">
+            <p>Overcooked All You Can Eat</p>
+            <p>DLCs</p>
+          </button>
+        </article>
+      </section>
+  
+      <div id="dlc_display_lists" *ngIf="overcooked_dlc_content_list_opened || overcooked_2_dlc_content_list_opened || overcooked_ayce_dlc_content_list_opened">
+        <article *ngIf="overcooked_dlc_content_list_opened">
+          <h4>Overcooked DLCs</h4>
+          <button (click)="modifyAllDLCList('overcooked_dlcs')" class="select-all" type="button" [ngClass]="{'remove-all' : (toggleSelectAll_overcooked_dlcs == 'Remove all')}">{{toggleSelectAll_overcooked_dlcs}}</button>
+          <span (click)="modifyContentDLC('overcooked_dlcs', item); toggleMessage('overcooked_dlcs')" [ngClass]="{'activated_dlc': 
+          content_list.includes(item)}" *ngFor="let item of overcooked_dlc_names">
+            {{item}}
+          </span>
+        </article>
+  
+        <article *ngIf="overcooked_2_dlc_content_list_opened">
+          <h4>Overcooked 2 DLCs</h4>
+          <button (click)="modifyAllDLCList('overcooked_2_dlcs')" class="select-all" type="button" [ngClass]="{'remove-all' : (toggleSelectAll_overcooked_2_dlcs == 'Remove all')}">{{toggleSelectAll_overcooked_2_dlcs}}</button>
+          <span (click)="modifyContentDLC('overcooked_2_dlcs', item); toggleMessage('overcooked_2_dlcs')" [ngClass]="{'activated_dlc': 
+          content_list.includes(item)}" *ngFor="let item of overcooked_2_dlc_names">
+            {{item}}
+          </span>
+        </article>
+  
+        <article *ngIf="overcooked_ayce_dlc_content_list_opened">
+          <h4>Overcooked: All You Can Eat DLCs</h4>
+          <button (click)="modifyAllDLCList('overcooked_ayce_dlcs')" class="select-all" type="button" [ngClass]="{'remove-all' : (toggleSelectAll_overcooked_ayce_dlcs == 'Remove all')}">{{toggleSelectAll_overcooked_ayce_dlcs}}</button>
+          <span (click)="modifyContentDLC('overcooked_ayce_dlcs', item); toggleMessage('overcooked_ayce_dlcs')" [ngClass]="{'activated_dlc': 
+          content_list.includes(item)}" *ngFor="let item of overcooked_ayce_dlc_names">
+            {{item}}
+          </span>
+        </article>
+      </div>
+  
+      <form [formGroup]="overcookedForm" (submit)="submit()" id="generate-box">
+        <article id="generate">
+          <div>
+            <input type="number" min="1" max="10000000000" placeholder="Number of levels" formControlName="num_levels">
+            <button type="button" (click)="setMaxNumLevels()">Max</button>
+          </div>
+          <button type="submit" id="generate-button">Generate</button>
+          <button type="button" id="clear-button" (click)="clear()">Clear Filters</button>
+        </article>
+  
+        <article id="checks">
+          <div>
+            <input type="checkbox" name="normal_levels" id="normal_levels" [checked]="this.overcookedForm.controls['normal_levels'].value" formControlName="normal_levels" (click)="this.overcookedForm.controls['normal_levels'].setValue(!this.overcookedForm.controls['normal_levels'].value)">
+            <label for="normal_levels">Normal levels</label>
+          </div>
+  
+          <div>
+            <input type="checkbox" name="kevin_levels" id="kevin_levels" formControlName="kevin_levels" [checked]="this.overcookedForm.controls['kevin_levels'].value" (click)="this.overcookedForm.controls['kevin_levels'].setValue(!this.overcookedForm.controls['kevin_levels'].value)">
+            <label for="kevin_levels">Kevin levels</label>
+          </div>
+  
+          <div>
+            <input type="checkbox" name="horde_levels" id="horde_levels" formControlName="horde_levels" [checked]="this.overcookedForm.controls['horde_levels'].value" (click)="this.overcookedForm.controls['horde_levels'].setValue(!this.overcookedForm.controls['horde_levels'].value)">
+            <label for="horde_levels">Horde levels</label>
+          </div>
+  
+          <div>
+            <input type="checkbox" name="final_boss_levels" id="final_boss_levels" formControlName="final_boss_levels" [checked]="this.overcookedForm.controls['final_boss_levels'].value" (click)="this.overcookedForm.controls['final_boss_levels'].setValue(!this.overcookedForm.controls['final_boss_levels'].value)">
+            <label for="final_boss_levels">Final Boss levels</label>
+          </div>
+        </article>
+      </form>
+  
+      <div class="pop-up" id="warnings" *ngIf="error_list.length > 0">
+        <button (click)="clearErrors()">x</button>
+        <p *ngFor="let error of error_list">{{error}}</p>
+      </div>
+  
+      <div class="pop-up" id="information" *ngIf="finishLoop == true">
+        <button (click)="finishLoop = false">x</button>
+        <p>All levels from your selection are already showed.</p>
+      </div>
+  
+      <button (click)="reset()" type="button" id="reset-level-list" *ngIf="contentEmpty() == true">Reset levels list</button>
+    </div>
+  
+    <section id="results">
+      <article *ngIf="overcooked_levels_result.length > 0 || overcooked_dlc_levels_result.length > 0">
+        <h3 *ngIf="overcooked_levels_result.length > 0">Overcooked</h3>
+        <div *ngIf="overcooked_levels_result.length > 0">
+          <button (click)="toggleCompleted(item.toString())" *ngFor="let item of overcooked_levels_result" type="button">
+            <span [ngClass]="{'completed': completed_levels.includes(item.toString()), 'kevin': item[2] == 'kevin' && !completed_levels.includes(item.toString()), 'horde': item[2] == 'horde' && !completed_levels.includes(item.toString()), 'final-boss': item[2] == 'final boss' && !completed_levels.includes(item.toString())}">
+                {{item[1]}}
+              </span>
+          </button>
+        </div>
+    
+        <h3 [ngClass]="{'dlc-results-just-dlcs': overcooked_levels_result.length <= 0, 'dlc-results': overcooked_levels_result.length > 0}" *ngIf="overcooked_dlc_levels_result.length > 0">Overcooked DLCs</h3>
+        <div *ngIf="overcooked_dlc_levels_result.length > 0">
+          <div class="dlc-level-group" *ngFor="let nameItem of usedNames_overcooked_dlcs">
+            <h4>{{nameItem}}</h4>
+            <span class="dlc-sub-level-group">
+              <span *ngFor="let item of overcooked_dlc_levels_result">
+                <button *ngIf="nameItem == item[0][2]" (click)="toggleCompleted(item.toString())" type="button">
+                  <span [ngClass]="{'completed': completed_levels.includes(item.toString()), 'kevin': item[2] == 'kevin' && !completed_levels.includes(item.toString()), 'horde': item[2] == 'horde' && !completed_levels.includes(item.toString()), 'final-boss': item[2] == 'final boss' && !completed_levels.includes(item.toString())}">
+                      {{item[1]}}
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </article>
+  
+      <article *ngIf="overcooked_ayce_dlc_levels_result.length > 0 || overcooked_ayce_dlc_levels_result.length > 0">
+        <h3 class="dlc-results-just-dlcs" *ngIf="overcooked_ayce_dlc_levels_result.length > 0">Overcooked: All You Can Eat DLCs</h3>
+        <div *ngIf="overcooked_ayce_dlc_levels_result.length > 0">
+          <div class="dlc-level-group" *ngFor="let nameItem of usedNames_overcooked_ayce_dlcs">
+            <h4>{{nameItem}}</h4>
+            <span class="dlc-sub-level-group">
+              <span *ngFor="let item of overcooked_ayce_dlc_levels_result">
+                <button *ngIf="nameItem == item[0][2]" (click)="toggleCompleted(item.toString())" type="button">
+                  <span [ngClass]="{'completed': completed_levels.includes(item.toString()), 'kevin': item[2] == 'kevin' && !completed_levels.includes(item.toString()), 'horde': item[2] == 'horde' && !completed_levels.includes(item.toString()), 'final-boss': item[2] == 'final boss' && !completed_levels.includes(item.toString())}">
+                      {{item[1]}}
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </article>
+    
+      <article *ngIf="overcooked_2_levels_result.length > 0 || overcooked_2_dlc_levels_result.length > 0">
+        <h3 *ngIf="overcooked_2_levels_result.length > 0">Overcooked 2</h3>
+        <div *ngIf="overcooked_2_levels_result.length > 0">
+          <button (click)="toggleCompleted(item.toString())" *ngFor="let item of overcooked_2_levels_result" type="button">
+            <span [ngClass]="{'completed': completed_levels.includes(item.toString()), 'kevin': item[2] == 'kevin' && !completed_levels.includes(item.toString()), 'horde': item[2] == 'horde' && !completed_levels.includes(item.toString()), 'final-boss': item[2] == 'final boss' && !completed_levels.includes(item.toString())}">
+              {{item[1]}}
+            </span>
+          </button>
+        </div>
+    
+        <h3 [ngClass]="{'dlc-results-just-dlcs': overcooked_2_levels_result.length <= 0, 'dlc-results': overcooked_2_levels_result.length > 0}" *ngIf="overcooked_2_dlc_levels_result.length > 0">Overcooked 2 DLCs</h3>
+        <div *ngIf="overcooked_2_dlc_levels_result.length > 0">
+          <div class="dlc-level-group" *ngFor="let nameItem of usedNames_overcooked_2_dlcs">
+            <h4>{{nameItem}}</h4>
+            <span class="dlc-sub-level-group">
+              <span *ngFor="let item of overcooked_2_dlc_levels_result">
+                <button *ngIf="nameItem == item[0][2]" (click)="toggleCompleted(item.toString())" type="button">
+                  <span [ngClass]="{'completed': completed_levels.includes(item.toString()), 'kevin': item[2] == 'kevin' && !completed_levels.includes(item.toString()), 'horde': item[2] == 'horde' && !completed_levels.includes(item.toString()), 'final-boss': item[2] == 'final boss' && !completed_levels.includes(item.toString())}">
+                      {{item[1]}}
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </article>
+    </section>
+</main>

@@ -1,0 +1,20 @@
+<main class="container p-5 flex flex-col gap-5">
+    <p-selectButton 
+        [options]="stateOptions" 
+        [(ngModel)]="valueOption" 
+        optionLabel="label" 
+        optionValue="value"
+        (onOptionClick)="toggleOptionButton()"
+        allowEmpty="false"
+    />
+
+    @if (valueOption == 'add') {
+        <form [formGroup]="formAdd" (ngSubmit)="addLevel">
+            <h1>TO-DO - Add</h1>
+        </form>
+    } @else {
+        <form [formGroup]="formAdd" (ngSubmit)="removeLevel">
+            <h1>TO-DO - Remove</h1>
+        </form>
+    }
+</main>

@@ -1,0 +1,13 @@
+:host ::ng-deep {
+    input {
+        padding: 5px;
+        border: 1px solid gray;
+        @apply rounded
+    }
+
+    button {
+        padding: 10px;
+        border-radius: 7px;
+        cursor: pointer;
+    }
+}

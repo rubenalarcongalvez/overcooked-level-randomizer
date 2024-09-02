@@ -1,4 +1,9 @@
 @import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
     border: 0;
@@ -289,29 +294,6 @@ button.remove-all {
     }
 }
 
-button {
-    padding: 10px;
-    color: white;
-    border-radius: 7px;
-    cursor: pointer;
-
-    &.game {
-        background: linear-gradient(sienna 60%, orangered);
-
-        &:hover {
-            background: linear-gradient(sienna, orangered 60%);
-        }
-    }
-
-    &.dlc {
-        background: linear-gradient(sienna 60%, red);
-
-        &:hover {
-            background: linear-gradient(sienna, red 60%);
-        }
-    }
-}
-
 button#reset-level-list {
     background-color: rgb(201, 19, 55);
     width: 100%;
@@ -382,8 +364,9 @@ footer {
 #main-div {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     justify-content: space-between;
+    position: relative;
 }
 
 footer {

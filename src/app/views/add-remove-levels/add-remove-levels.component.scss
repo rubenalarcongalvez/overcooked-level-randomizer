@@ -1,0 +1,9 @@
+:host ::ng-deep {
+    .p-selectbutton .p-button {
+        padding: 5px;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}

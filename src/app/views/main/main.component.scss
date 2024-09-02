@@ -1,0 +1,22 @@
+button {
+    padding: 10px;
+    color: white;
+    border-radius: 7px;
+    cursor: pointer;
+
+    &.game {
+        background: linear-gradient(sienna 60%, orangered);
+
+        &:hover {
+            background: linear-gradient(sienna, orangered 60%);
+        }
+    }
+
+    &.dlc {
+        background: linear-gradient(sienna 60%, red);
+
+        &:hover {
+            background: linear-gradient(sienna, red 60%);
+        }
+    }
+}
