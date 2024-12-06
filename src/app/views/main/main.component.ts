@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-main',
@@ -10,6 +12,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
+  constructor(private fb: FormBuilder, private storageService: StorageService, private authService: AuthService) {}
+
   title = 'Overcooked level randomizer';
 
   //We create all levels, separated by game or DLC
@@ -167,6 +171,8 @@ export class MainComponent {
     }
     this.overcooked_ayce_dlc_levels = auxArray;
     auxArray = [];
+
+    this.initializeData();
   }
 
   content_list:string[] = [];
@@ -210,11 +216,56 @@ export class MainComponent {
     }
   }
 
+  /*=============================================
+  =            Content generated            =
+  =============================================*/
+  
   overcooked_levels_result:any = [];
   overcooked_dlc_levels_result:any = [];
   overcooked_2_levels_result:any = [];
   overcooked_2_dlc_levels_result:any = [];
   overcooked_ayce_dlc_levels_result:any = [];
+
+  completed_levels:any = [];
+
+  initializeData() {
+    this.authService.getCurrentUserPeticion().subscribe((user) => {
+      if (user) {
+        this.storageService.getDocumentByAddress(`overcooked-level-randomizer/users/${user?.uid}/lists`).subscribe({
+          next: (resp: any) => {
+            if (resp) {
+              /* We set them as arrays */
+              this.overcooked_levels_result = JSON.parse(resp?.overcooked_levels_result);
+              this.overcooked_dlc_levels_result = JSON.parse(resp?.overcooked_dlc_levels_result);
+              this.overcooked_2_levels_result = JSON.parse(resp?.overcooked_2_levels_result);
+              this.overcooked_2_dlc_levels_result = JSON.parse(resp?.overcooked_2_dlc_levels_result);
+              this.overcooked_ayce_dlc_levels_result = JSON.parse(resp?.overcooked_ayce_dlc_levels_result);
+              this.completed_levels = JSON.parse(resp?.completed_levels);
+            }
+          },
+          error: (err: any) => {
+            console.error(err);
+          }
+        });
+      }
+    });
+  }
+
+  updateLists() {
+    if (this.storageService.isLoggedIn()) {
+      /* We have to stringify all first since firebase does not allow nested arrays */
+      this.storageService.setDocumentByAddress(`overcooked-level-randomizer/users/${this.authService.getCurrentUser()?.uid}/lists`, {
+        overcooked_levels_result: JSON.stringify(this.overcooked_levels_result),
+        overcooked_dlc_levels_result: JSON.stringify(this.overcooked_dlc_levels_result),
+        overcooked_2_levels_result: JSON.stringify(this.overcooked_2_levels_result),
+        overcooked_2_dlc_levels_result: JSON.stringify(this.overcooked_2_dlc_levels_result),
+        overcooked_ayce_dlc_levels_result: JSON.stringify(this.overcooked_ayce_dlc_levels_result),
+        completed_levels: JSON.stringify(this.completed_levels)
+      });
+    }
+  }
+  
+  /*=====  Final de Content generated  ======*/
 
   contentEmpty() {
     return !(this.overcooked_levels_result.length <= 0
@@ -223,8 +274,6 @@ export class MainComponent {
     && this.overcooked_2_dlc_levels_result.length <= 0
     && this.overcooked_ayce_dlc_levels_result.length <= 0)
   }
-  
-  completed_levels:any = [];
 
   modifyAllDLCList(content:string) {
     let dlcsIn:string[] = [];
@@ -316,6 +365,7 @@ export class MainComponent {
     } else {
       this.completed_levels.push(content);
     }
+    this.updateLists();
   }
 
   modifyContentDLC(content:string, item: string) {
@@ -352,8 +402,6 @@ export class MainComponent {
       }
     }
   }
-
-  constructor(private fb: FormBuilder) {}
 
   error_list:string[] = [];
 
@@ -665,5 +713,7 @@ export class MainComponent {
 
     //Always this order not to delete things I don't want
     this.clear();
+
+    this.updateLists();
   }
 }

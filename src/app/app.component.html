@@ -1,9 +1,19 @@
+<p-toast></p-toast>
 <div id="main-div">
   <!-- Popups -->
   <section>
-    <section class="w-full flex p-2 justify-end">
-      <app-login></app-login>
-    </section>
+    <article class="w-full flex p-2 justify-end gap-2 items-center bg-orange-600" *ngIf="!loggedIn">
+      <h3 class="text-white">Login</h3>
+      <p-button (click)="socialLogin(socialLoginMethods.Google)" icon="pi pi-google" styleClass="bg-white text-black hover:bg-gray-100" class="outline outline-1 outline-solid outline-gray-200 rounded bg-white" matTooltip="Google">
+        <ng-template pTemplate="icon">
+            <img src="assets/google-icon.png" width="20" height="20" alt="Google">
+        </ng-template>
+      </p-button>
+      <p-button (click)="socialLogin(socialLoginMethods.Facebook)" icon="pi pi-facebook" matTooltip="Facebook"/>
+    </article>
+    <article class="w-full flex p-2 justify-end gap-2 items-center bg-orange-600" *ngIf="loggedIn">
+      <button class="bg-orange-400" (click)="logout()">Log out</button>
+    </article>
   
     <router-outlet></router-outlet>
   </section>
