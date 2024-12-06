@@ -458,6 +458,8 @@ export class MainComponent {
     this.usedNames_overcooked_ayce_dlcs = [];
 
     this.completed_levels = [];
+
+    this.updateLists();
   }
 
   usedNames_overcooked_dlcs:any = [];
