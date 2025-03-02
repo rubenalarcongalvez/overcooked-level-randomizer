@@ -60,7 +60,7 @@
       <form [formGroup]="overcookedForm" (submit)="submit()" id="generate-box">
         <article id="generate">
           <div>
-            <input type="number" min="1" max="10000000000" placeholder="Number of levels" formControlName="num_levels">
+            <input type="number" [min]="1" [max]="this.overcooked_level_count" placeholder="Number of levels" formControlName="num_levels">
             <button type="button" (click)="setMaxNumLevels()">Max</button>
           </div>
           <button type="submit" id="generate-button">Generate</button>

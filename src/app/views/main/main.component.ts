@@ -114,6 +114,8 @@ export class MainComponent {
 
   overcooked_ayce_dlc_names:any = ["The Ever Peckish Rises", "The Overcooked Birthday Party", "The World Food Festival"];
 
+  overcooked_level_count: number = 0;
+
   ngOnInit(): void {
     let auxArray:any = [];
 
@@ -172,6 +174,14 @@ export class MainComponent {
     this.overcooked_ayce_dlc_levels = auxArray;
     auxArray = [];
 
+    this.overcooked_level_count = this.overcooked_levels?.length + this.overcooked_dlc_levels?.length + this.overcooked_2_dlc_levels?.length + this.overcooked_2_dlc_levels?.length + this.overcooked_ayce_dlc_levels?.length;
+    this.overcookedForm = this.fb.group({
+      num_levels: [, [Validators.required, Validators.min(1), Validators.max(this.overcooked_level_count)]],
+      normal_levels: [true],
+      kevin_levels: [false],
+      horde_levels: [false],
+      final_boss_levels: [false],
+    });
     this.initializeData();
   }
 
@@ -235,6 +245,9 @@ export class MainComponent {
           next: (resp: any) => {
             if (resp) {
               /* We set them as arrays */
+              this.usedNames_overcooked_dlcs = JSON.parse(resp?.usedNames_overcooked_dlcs),
+              this.usedNames_overcooked_2_dlcs = JSON.parse(resp?.usedNames_overcooked_2_dlcs),
+              this.usedNames_overcooked_ayce_dlcs = JSON.parse(resp?.usedNames_overcooked_ayce_dlcs),
               this.overcooked_levels_result = JSON.parse(resp?.overcooked_levels_result);
               this.overcooked_dlc_levels_result = JSON.parse(resp?.overcooked_dlc_levels_result);
               this.overcooked_2_levels_result = JSON.parse(resp?.overcooked_2_levels_result);
@@ -255,6 +268,9 @@ export class MainComponent {
     if (this.storageService.isLoggedIn()) {
       /* We have to stringify all first since firebase does not allow nested arrays */
       this.storageService.setDocumentByAddress(`overcooked-level-randomizer/users/${this.authService.getCurrentUser()?.uid}/lists`, {
+        usedNames_overcooked_dlcs: JSON.stringify(this.usedNames_overcooked_dlcs),
+        usedNames_overcooked_2_dlcs: JSON.stringify(this.usedNames_overcooked_2_dlcs),
+        usedNames_overcooked_ayce_dlcs: JSON.stringify(this.usedNames_overcooked_ayce_dlcs),
         overcooked_levels_result: JSON.stringify(this.overcooked_levels_result),
         overcooked_dlc_levels_result: JSON.stringify(this.overcooked_dlc_levels_result),
         overcooked_2_levels_result: JSON.stringify(this.overcooked_2_levels_result),
@@ -405,16 +421,10 @@ export class MainComponent {
 
   error_list:string[] = [];
 
-  overcookedForm: FormGroup = this.fb.group({
-    num_levels: [, [Validators.required, Validators.min(1), Validators.max(10000000000)]],
-    normal_levels: [true],
-    kevin_levels: [false],
-    horde_levels: [false],
-    final_boss_levels: [false],
-  });
+  overcookedForm!: FormGroup;
 
   setMaxNumLevels() {
-    this.overcookedForm.controls['num_levels'].setValue(10000000000);
+    this.overcookedForm.controls['num_levels'].setValue(this.overcooked_level_count);
   }
 
   clearErrors() {
@@ -481,7 +491,6 @@ export class MainComponent {
         this.overcooked_2_dlc_levels_result.forEach((c:any) => {
           if(!this.usedNames_overcooked_2_dlcs.includes(c[0][2])) {
             this.usedNames_overcooked_2_dlcs.push(c[0][2]);
-            console.log(c[0][2]);
           }
         });
         break;
