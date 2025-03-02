@@ -1,0 +1,26 @@
+:host ::ng-deep .p-dialog {
+    .p-dialog-content, .p-dialog-header, .p-dialog-footer {
+        padding: 5px;
+    }
+
+    .p-dialog-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .p-dialog-footer {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        button {
+            width: 100%;
+        }
+    }
+
+    .p-confirm-dialog-reject {
+        color: white;
+        background-color: black;
+    }
+}

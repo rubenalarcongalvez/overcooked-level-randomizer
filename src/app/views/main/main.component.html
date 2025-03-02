@@ -60,7 +60,7 @@
       <form [formGroup]="overcookedForm" (submit)="submit()" id="generate-box">
         <article id="generate">
           <div>
-            <input type="number" [min]="1" [max]="this.overcooked_level_count" placeholder="Number of levels" formControlName="num_levels">
+            <input class="min-w-[250px]" type="number" [min]="1" [max]="this.overcooked_level_count" placeholder="Number of levels" formControlName="num_levels">
             <button type="button" (click)="setMaxNumLevels()">Max</button>
           </div>
           <button type="submit" id="generate-button">Generate</button>
@@ -100,7 +100,8 @@
         <p>All levels from your selection are already showed.</p>
       </div>
   
-      <button (click)="reset()" type="button" id="reset-level-list" *ngIf="contentEmpty() == true">Reset levels list</button>
+      <p-confirmDialog />
+      <button (click)="reset($event)" type="button" id="reset-level-list" *ngIf="contentEmpty() == true">Reset levels list</button>
     </div>
   
     <section id="results">

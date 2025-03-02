@@ -1,18 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { StylesModule } from 'src/app/shared/styles/styles.module';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, CommonModule, StylesModule],
+  providers: [ConfirmationService],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-  constructor(private fb: FormBuilder, private storageService: StorageService, private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private storageService: StorageService, private authService: AuthService, private confirmationService: ConfirmationService) {}
 
   title = 'Overcooked level randomizer';
 
@@ -456,20 +459,31 @@ export class MainComponent {
     this.clearErrors();
   }
 
-  reset() {
-    this.overcooked_levels_result = [];
-    this.overcooked_dlc_levels_result = [];
-    this.overcooked_2_levels_result = [];
-    this.overcooked_2_dlc_levels_result = [];
-    this.overcooked_ayce_dlc_levels_result = [];
-
-    this.usedNames_overcooked_dlcs = [];
-    this.usedNames_overcooked_2_dlcs = [];
-    this.usedNames_overcooked_ayce_dlcs = [];
-
-    this.completed_levels = [];
-
-    this.updateLists();
+  reset(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure that you want to reset levels?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon:"none",
+      rejectIcon:"none",
+      rejectButtonStyleClass:"p-button-text",
+      accept: () => {
+        this.overcooked_levels_result = [];
+        this.overcooked_dlc_levels_result = [];
+        this.overcooked_2_levels_result = [];
+        this.overcooked_2_dlc_levels_result = [];
+        this.overcooked_ayce_dlc_levels_result = [];
+    
+        this.usedNames_overcooked_dlcs = [];
+        this.usedNames_overcooked_2_dlcs = [];
+        this.usedNames_overcooked_ayce_dlcs = [];
+    
+        this.completed_levels = [];
+    
+        this.updateLists();
+      }
+    });
   }
 
   usedNames_overcooked_dlcs:any = [];

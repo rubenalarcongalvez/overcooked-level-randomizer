@@ -5,6 +5,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessageService } from 'primeng/api';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MessageService } from 'primeng/api';
     AvatarModule,
     SelectButtonModule,
     MessagesModule,
-    ToastModule
+    ToastModule,
+    ConfirmDialogModule,
   ],
   providers: [
     MessageService
